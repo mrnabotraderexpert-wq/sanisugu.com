@@ -1,8 +1,7 @@
-
 User-agent: *
 Allow: /
 
 User-agent: OAI-SearchBot
 Allow: /
 
-Sitemap: https://techmali.tech/sitemap.xml
+Sitemap: https://sugu.techmali.tech/sitemap.xml

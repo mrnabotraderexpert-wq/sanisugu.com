@@ -4,4 +4,4 @@ Allow: /
 User-agent: OAI-SearchBot
 Allow: /
 
-Sitemap: https://sugu.techmali.tech/sitemap.xml
+Sitemap: https://sugu.techmali.tech/sitemap.xml.

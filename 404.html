@@ -1,0 +1,222 @@
+<!doctype html>
+<html lang="fr"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Page introuvable | SUGU</title>
+<meta name="robots" content="noindex,nofollow">
+<style>
+body{margin:0;font-family:system-ui,sans-serif;background:#f5f8f4;color:#1b2b1b}
+header{background:#0f7a28;color:#fff;padding:12px 16px;font-weight:800;font-size:18px}
+main{max-width:640px;margin:0 auto;padding:12px}
+.card{background:#fff;border-radius:16px;padding:12px;margin-bottom:12px;border:1px solid #dde7dc}
+img{max-width:100%;border-radius:12px;display:block}
+.gal{display:flex;gap:8px;overflow-x:auto}.gal>*{flex:0 0 85%;max-height:320px;object-fit:cover;border-radius:12px}
+.price{font-size:22px;font-weight:800;color:#0a4d1c}.old{text-decoration:line-through;color:#777;margin-left:8px}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+a.p{color:inherit;text-decoration:none}
+.cta{background:#ff7a00;color:#fff;border-radius:12px;padding:12px;font-weight:700;text-align:center}
+.muted{color:#666}
+
+main.wide{max-width:960px;padding:0}
+.shop{--primary:#0f7a28;--secondary:#ff7a00;--r:14px;--ff:system-ui,sans-serif;font-family:var(--ff);background:#fafaf8;min-height:60vh;padding-bottom:28px}
+.shop .banner{height:clamp(130px,30vw,240px);background:linear-gradient(135deg,var(--primary),var(--secondary));position:relative}
+.shop .banner img{width:100%;height:100%;object-fit:cover;border-radius:0}
+.shop .logo{position:absolute;left:16px;bottom:-34px;width:68px;height:68px;border-radius:50%;border:3px solid #fff;background:var(--primary);object-fit:cover;box-shadow:0 2px 8px rgba(0,0,0,.3)}
+.shop .head{padding:44px 16px 4px}
+.shop h1{margin:0;font-size:22px;font-weight:900;color:var(--primary)}
+.shop .tag{font-weight:700;color:var(--secondary);margin-top:2px}
+.shop .btns{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}
+.shop .btn{display:inline-block;padding:11px 16px;border-radius:12px;font-weight:700;text-decoration:none;border:2px solid var(--primary);color:var(--primary);background:#fff}
+.shop .btn.main{background:var(--secondary);border-color:var(--secondary);color:var(--on-secondary,#fff)}
+.shop h2.t{margin:20px 16px 8px;font-size:17px;font-weight:800;color:var(--primary);border-left:5px solid var(--secondary);padding-left:8px}
+.shop .car{display:flex;gap:10px;overflow-x:auto;padding:0 16px 6px}
+.shop .car .pc{flex:0 0 150px}
+.shop .chips{display:flex;gap:8px;overflow-x:auto;padding:0 16px 10px}
+.shop .chip{flex:0 0 auto;border:1px solid #cfd8cf;background:#fff;border-radius:999px;padding:8px 14px;font:inherit;font-weight:600;cursor:pointer}
+.shop .chip.on{background:var(--primary);border-color:var(--primary);color:var(--on-primary,#fff)}
+.shop .items{display:grid;gap:10px;padding:0 16px}
+.shop .items.grid2{grid-template-columns:repeat(auto-fill,minmax(160px,1fr))}
+.shop .items.grid3{grid-template-columns:repeat(auto-fill,minmax(120px,1fr))}
+.shop .items.large{grid-template-columns:repeat(auto-fill,minmax(280px,1fr))}
+.shop .items.list{grid-template-columns:1fr}
+.shop .pc{display:block;background:#fff;border-radius:var(--r);overflow:hidden;box-shadow:0 1px 3px rgba(0,0,0,.15);color:inherit;text-decoration:none;position:relative}
+.shop .pc img{width:100%;aspect-ratio:1/1;object-fit:cover;border-radius:0;background:#eff3ee}
+.shop .pc .b{padding:8px}.shop .pc .n{font-weight:600;font-size:13px;overflow:hidden;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical}
+.shop .pc .pr{font-weight:800;color:var(--primary);font-size:13px;margin-top:4px}.shop .pc .pr s{color:#888;font-weight:400;font-size:11px;margin-left:6px}
+.shop .pc .off{position:absolute;right:6px;top:6px;background:var(--secondary);color:var(--on-secondary,#fff);border-radius:10px;padding:2px 7px;font-size:12px;font-weight:800}
+.shop .items.list .pc{display:flex}.shop .items.list .pc img{width:96px;height:96px;aspect-ratio:auto;flex:0 0 96px}
+.shop .items.large .pc .n{font-size:15px}.shop .items.large .pc .pr{font-size:16px}
+</style></head><body>
+<header>SUGU · Achetez • Vendez • Gagnez</header>
+<main id="app"><p class="muted">Chargement…</p></main>
+<script>
+// Ces deux valeurs sont publiques (identiques à lib/config.dart de l'application).
+const SB_URL = 'https://juaidyvcngqizxvnsxke.supabase.co';
+const SB_KEY = 'sb_publishable_0hMHJrEkJ5uZyip61AvbYg_s9ZzMTrO';
+const app = document.getElementById('app');
+const el = (t, props = {}, ...kids) => { const e = document.createElement(t); Object.assign(e, props); kids.forEach(k => e.append(k)); return e; };
+const fcfa = v => new Intl.NumberFormat('fr-FR').format(Number(v) || 0) + ' FCFA';
+const pub = (bucket, path) => SB_URL + '/storage/v1/object/public/' + bucket + '/' + encodeURI(path);
+async function rpc(name, args) {
+  const r = await fetch(SB_URL + '/rest/v1/rpc/' + name, { method: 'POST', headers: { apikey: SB_KEY, Authorization: 'Bearer ' + SB_KEY, 'Content-Type': 'application/json' }, body: JSON.stringify(args) });
+  if (!r.ok) throw new Error('Erreur réseau');
+  return r.json();
+}
+function cta() { return el('div', { className: 'card cta' }, 'Pour commander ou discuter avec le vendeur : ouvrez SUGU, puis connectez-vous ou créez un compte.'); }
+function notFound() { app.replaceChildren(el('div', { className: 'card' }, 'Ce lien est introuvable ou n\'est plus disponible.')); }
+async function product(id) {
+  const d = await rpc('public_product', { p_id: id });
+  if (!d) return notFound();
+  const p = d.product, gal = el('div', { className: 'gal' });
+  (d.media || []).forEach(m => {
+    if (m.kind === 'video') { const v = el('video', { controls: true, preload: 'metadata' }); v.src = pub('product-videos', m.path); gal.append(v); }
+    else { const i = el('img', { alt: p.name, loading: 'lazy' }); i.src = pub('product-images', m.path); gal.append(i); }
+  });
+  document.title = p.name + ' · SUGU';
+  const card = el('div', { className: 'card' }, gal, el('h2', {}, p.name),
+    el('div', { className: 'price' }, fcfa(p.promo_price || p.price), p.promo_price ? el('span', { className: 'old' }, fcfa(p.price)) : ''),
+    el('p', {}, Number(p.stock) > 0 ? 'Disponible' : 'Rupture de stock'), el('p', {}, p.description || ''));
+  if (d.shop) { const a = el('a', { href: '/shop/' + d.shop.slug }, d.shop.name); card.append(el('p', { className: 'muted' }, 'Boutique : ', a)); }
+  app.replaceChildren(card, cta());
+}
+const HEX = /^#[0-9A-Fa-f]{6}$/;
+const FONTS = { modern: 'system-ui,-apple-system,Segoe UI,Roboto,sans-serif', elegant: "Georgia,'Times New Roman',serif", technical: "ui-monospace,Menlo,Consolas,monospace", condensed: "'Arial Narrow','Roboto Condensed',sans-serif" };
+const RADII = { sharp: '4px', soft: '14px', round: '26px' };
+const LAYOUTS = ['grid2', 'grid3', 'list', 'large'];
+const SECTION_TITLES = { featured: 'Produits en vedette', promos: 'Promotions', new: 'Nouveautés' };
+function onColor(h) { const n = parseInt(h.slice(1), 16), r = n >> 16, g = (n >> 8) & 255, b = n & 255; return (0.299 * r + 0.587 * g + 0.114 * b) / 255 < 0.55 ? '#fff' : '#222'; }
+function readDesign(d) {
+  d = d && typeof d === 'object' ? d : {};
+  const out = { primary: '#0F7A28', secondary: '#FF7A00', font: 'modern', layout: 'grid2', radius: 'soft', tagline: '', sections: [], featured: [], categories: [] };
+  if (HEX.test(d.primary)) out.primary = d.primary;
+  if (HEX.test(d.secondary)) out.secondary = d.secondary;
+  if (FONTS[d.font]) out.font = d.font;
+  if (LAYOUTS.includes(d.layout)) out.layout = d.layout;
+  if (RADII[d.radius]) out.radius = d.radius;
+  if (typeof d.tagline === 'string') out.tagline = d.tagline.slice(0, 120);
+  const seen = new Set();
+  (Array.isArray(d.sections) ? d.sections : []).forEach(x => { if (x && ['featured', 'promos', 'new', 'catalog'].includes(x.id) && !seen.has(x.id)) { seen.add(x.id); out.sections.push({ id: x.id, on: x.on !== false }); } });
+  ['featured', 'promos', 'new', 'catalog'].forEach(id => { if (!seen.has(id)) out.sections.push({ id, on: true }); });
+  if (Array.isArray(d.featured)) out.featured = d.featured.filter(x => typeof x === 'string');
+  if (Array.isArray(d.categories)) out.categories = d.categories.filter(c => c && typeof c.name === 'string').map(c => ({ name: c.name.slice(0, 40), products: Array.isArray(c.products) ? c.products.filter(x => typeof x === 'string') : [] }));
+  return out;
+}
+const isPromo = p => Number(p.promo_price) > 0 && Number(p.promo_price) < Number(p.price);
+const isNew = p => { const t = Date.parse(p.created_at); return !isNaN(t) && Date.now() - t < 14 * 864e5; };
+function card(p) {
+  const a = el('a', { className: 'pc', href: '/product/' + p.id });
+  if (isPromo(p)) a.append(el('span', { className: 'off' }, '-' + Math.round((1 - Number(p.promo_price) / Number(p.price)) * 100) + '%'));
+  if (p.image_path) { const i = el('img', { alt: p.name, loading: 'lazy' }); i.src = pub('product-images', p.image_path); a.append(i); }
+  else a.append(el('div', { style: 'aspect-ratio:1/1;background:#eff3ee' }));
+  const price = el('div', { className: 'pr' }, fcfa(isPromo(p) ? p.promo_price : p.price));
+  if (isPromo(p)) price.append(el('s', {}, fcfa(p.price)));
+  a.append(el('div', { className: 'b' }, el('div', { className: 'n' }, p.name), price));
+  return a;
+}
+async function shop(slug) {
+  const data = await rpc('public_shop', { p_slug: slug });
+  if (!data) return notFound();
+  const s = data.shop, d = readDesign(data.design), all = data.products || [];
+  document.title = s.name + ' · SUGU';
+  const root = el('div', { className: 'shop' });
+  root.style.setProperty('--primary', d.primary); root.style.setProperty('--secondary', d.secondary);
+  root.style.setProperty('--on-primary', onColor(d.primary)); root.style.setProperty('--on-secondary', onColor(d.secondary));
+  root.style.setProperty('--r', RADII[d.radius]); root.style.setProperty('--ff', FONTS[d.font]);
+  const banner = el('div', { className: 'banner' });
+  if (s.banner_path) { const b = el('img', { alt: '' }); b.src = pub('shop-assets', s.banner_path); banner.append(b); }
+  if (s.logo_path) { const l = el('img', { className: 'logo', alt: s.name }); l.src = pub('shop-assets', s.logo_path); banner.append(l); }
+  const head = el('div', { className: 'head' }, el('h1', {}, s.name));
+  if (d.tagline) head.append(el('div', { className: 'tag' }, d.tagline));
+  if (s.description) head.append(el('p', {}, s.description));
+  const where = [s.city, s.address].filter(Boolean).join(' · ');
+  if (where) head.append(el('p', { className: 'muted' }, '📍 ' + where));
+  const btns = el('div', { className: 'btns' });
+  const wa = String(s.whatsapp || '').replace(/\D/g, '');
+  if (wa) btns.append(el('a', { className: 'btn main', href: 'https://wa.me/' + wa, target: '_blank', rel: 'noopener' }, 'WhatsApp'));
+  const tel = String(s.phone || '').trim();
+  if (/^[+0-9 ()-]{6,20}$/.test(tel)) btns.append(el('a', { className: 'btn', href: 'tel:' + tel.replace(/\s/g, '') }, 'Appeler'));
+  if (btns.children.length) head.append(btns);
+  root.append(banner, head);
+  const byId = new Map(all.map(p => [p.id, p]));
+  if (!all.length) root.append(el('p', { className: 'muted', style: 'padding:24px' }, 'Cette boutique n\'a pas encore de produit publié.'));
+  d.sections.filter(x => x.on).forEach(sec => {
+    if (!all.length) return;
+    if (sec.id === 'catalog') {
+      root.append(el('h2', { className: 't' }, 'Catalogue · ' + all.length + ' produit(s)'));
+      const cats = d.categories.filter(c => c.products.some(id => byId.has(id)));
+      const items = el('div', { className: 'items ' + d.layout });
+      const render = (idx) => {
+        const list = idx < 0 ? all : all.filter(p => cats[idx].products.includes(p.id));
+        items.replaceChildren(...list.map(card));
+        if (!list.length) items.append(el('p', { className: 'muted' }, 'Aucun produit à afficher ici pour le moment.'));
+      };
+      if (cats.length) {
+        const chips = el('div', { className: 'chips' });
+        [{ name: 'Tous' }, ...cats].forEach((c, k) => {
+          const b = el('button', { className: 'chip' + (k === 0 ? ' on' : ''), type: 'button' }, c.name);
+          b.onclick = () => { chips.querySelectorAll('.chip').forEach(x => x.classList.remove('on')); b.classList.add('on'); render(k - 1); };
+          chips.append(b);
+        });
+        root.append(chips);
+      }
+      render(-1);
+      root.append(items);
+      return;
+    }
+    const list = sec.id === 'featured' ? d.featured.map(id => byId.get(id)).filter(Boolean)
+      : sec.id === 'promos' ? all.filter(isPromo).slice(0, 12) : all.filter(isNew).slice(0, 12);
+    if (!list.length) return;
+    root.append(el('h2', { className: 't' }, SECTION_TITLES[sec.id]), el('div', { className: 'car' }, ...list.map(card)));
+  });
+  app.className = 'wide';
+  app.replaceChildren(root, el('div', { style: 'padding:0 12px' }, cta()));
+}
+async function teriya(token) {
+  const d = await rpc('public_teriya_order', { p_token: token });
+  if (!d || !d.product || d.status === 'cancelled') return notFound();
+  const box = el('div', { className: 'card' });
+  if (d.photo_path) { const i = el('img', { alt: d.product, loading: 'lazy' }); i.src = pub('shop-assets', d.photo_path); box.append(i); }
+  box.append(el('h2', { style: 'margin:10px 0 2px' }, d.product));
+  if (d.brand) box.append(el('div', { className: 'muted' }, 'Marque : ' + d.brand));
+  if (d.description) box.append(el('p', {}, d.description));
+  box.append(el('div', { className: 'muted' }, 'Quantité : ' + d.quantity));
+  if (d.delay_days != null) box.append(el('div', { className: 'muted' }, 'Délai : ' + d.delay_days + ' jour(s)'));
+  box.append(el('div', { className: 'price', style: 'margin-top:8px' }, fcfa(d.price)));
+  if (d.seller) box.append(el('div', { className: 'muted', style: 'margin-top:6px' }, 'Vendeur : ' + d.seller));
+  const out = [box];
+  if (d.confirmed) {
+    out.push(el('div', { className: 'card' }, 'Votre commande est confirmée. Le vendeur va vous contacter.'));
+  } else {
+    const mk = (label, type, ph) => { const i = el('input', { type, placeholder: ph || '', maxLength: 300 }); i.style.cssText = 'width:100%;box-sizing:border-box;padding:12px;margin:4px 0 10px;border:1px solid #cfd8cf;border-radius:10px;font:inherit'; return [el('label', { style: 'font-weight:700' }, label), i]; };
+    const [l1, name] = mk('Votre nom', 'text'), [l2, phone] = mk('Votre téléphone', 'tel'), [l3, addr] = mk('Adresse de livraison (facultatif)', 'text');
+    const msg = el('div', { className: 'muted' });
+    const btn = el('button', { className: 'cta', type: 'button' }, 'Confirmer ma commande');
+    btn.style.cssText = 'width:100%;border:0;font:inherit;font-weight:700;cursor:pointer';
+    btn.onclick = async () => {
+      if (name.value.trim().length < 2 || phone.value.trim().length < 6) { msg.textContent = 'Indiquez votre nom et votre téléphone.'; return; }
+      btn.disabled = true; msg.textContent = 'Envoi…';
+      try {
+        const r = await fetch(SB_URL + '/rest/v1/rpc/public_teriya_confirm', { method: 'POST', headers: { apikey: SB_KEY, Authorization: 'Bearer ' + SB_KEY, 'Content-Type': 'application/json' }, body: JSON.stringify({ p_token: token, p_name: name.value.trim(), p_phone: phone.value.trim(), p_address: addr.value.trim() }) });
+        if (!r.ok) throw new Error('x');
+        app.replaceChildren(box, el('div', { className: 'card' }, 'Merci ! Votre commande est confirmée. Le vendeur va vous contacter.'));
+      } catch (e) { btn.disabled = false; msg.textContent = 'Envoi impossible. Réessayez ou contactez le vendeur.'; }
+    };
+    out.push(el('div', { className: 'card' }, l1, name, l2, phone, l3, addr, btn, msg));
+  }
+  if (d.seller_contact) { const w = String(d.seller_contact).replace(/\D/g, ''); if (w.length >= 8) { const a = el('a', { className: 'card', href: 'https://wa.me/' + w, style: 'display:block;text-align:center;font-weight:700;text-decoration:none;color:#0a4d1c' }, 'Écrire au vendeur sur WhatsApp'); out.push(a); } }
+  app.replaceChildren(...out);
+}
+(async () => {
+  try {
+    const u = new URLSearchParams(location.search), parts = location.pathname.split('/').filter(Boolean);
+    const ti = parts.indexOf('teriya');
+    if (ti >= 0) { const tk = decodeURIComponent(parts[ti + 1] || ''); if (/^[0-9a-f]{20,64}$/i.test(tk)) await teriya(tk); else notFound(); return; }
+    const i = parts.findIndex(x => x === 'product' || x === 'shop' || x === 'boutique');
+    const kind0 = i >= 0 ? parts[i] : (u.get('product') ? 'product' : (u.get('shop') || u.get('boutique') ? 'shop' : ''));
+    const kind = kind0 === 'boutique' ? 'shop' : kind0;
+    const val = i >= 0 ? decodeURIComponent(parts[i + 1] || '') : (u.get('product') || u.get('shop') || u.get('boutique') || '');
+    if (kind === 'product' && /^[0-9a-f-]{36}$/i.test(val)) await product(val);
+    else if (kind === 'shop' && /^[a-z0-9-]{3,60}$/.test(val)) await shop(val);
+    else notFound();
+  } catch (e) { app.replaceChildren(el('div', { className: 'card' }, 'Connexion impossible. Réessayez plus tard.')); }
+})();
+</script></body></html>
